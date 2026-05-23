@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="320" height="240" viewBox="0 0 320 240">
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="240" viewBox="-28 -20 376 280">
   <rect width="320" height="240" fill="#e3f2fd" rx="12"/>
   <path d="M73 132 C76 96 103 63 144 56 C175 51 214 65 234 91 C244 107 239 128 220 138 C194 150 152 157 116 150 C87 144 70 150 73 132 Z" fill="#f5f5f5"/>
   <path d="M93 118 C107 88 133 72 164 69 C190 67 210 80 221 100" stroke="#e0e0e0" stroke-width="5" fill="none" stroke-linecap="round"/>
@@ -6,3 +6,4 @@
   <path d="M73 132 C87 144 116 150 152 157 C186 150 214 140 220 138" stroke="#bdbdbd" stroke-width="4" fill="none"/>
   <ellipse cx="132" cy="88" rx="15" ry="9" fill="rgba(255,255,255,0.7)" transform="rotate(-25,132,88)"/>
 </svg>
+

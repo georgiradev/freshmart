@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="320" height="240" viewBox="0 0 320 240">
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="240" viewBox="-28 -20 376 280">
   <rect width="320" height="240" fill="#f3e5f5" rx="12"/>
   <!-- Red bear -->
   <circle cx="115" cy="108" r="23" fill="#ef5350"/>
@@ -25,3 +25,4 @@
   <circle cx="198" cy="105" r="5" fill="#f9a825" opacity="0.6"/>
   <circle cx="212" cy="105" r="4" fill="#f9a825" opacity="0.6"/>
 </svg>
+
