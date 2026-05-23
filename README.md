@@ -28,19 +28,19 @@ A full-stack e-commerce web application for fresh groceries, built with Spring B
 ## Screenshots
 
 ### Login
-![Login](docs/screenshots/login.png)
+<img src="docs/screenshots/login.png" width="800" alt="Login">
 
 ### Shop
-![Shop page](docs/screenshots/shop.png)
+<img src="docs/screenshots/shop.png" width="800" alt="Shop">
 
 ### Cart
-![Cart](docs/screenshots/cart.png)
+<img src="docs/screenshots/cart.png" width="800" alt="Cart">
 
 ### Profile
-![Profile](docs/screenshots/profile.png)
+<img src="docs/screenshots/profile.png" width="800" alt="Profile">
 
 ### Register
-![Register](docs/screenshots/register.png)
+<img src="docs/screenshots/register.png" width="800" alt="Register">
 
 ## Quickstart (local)
 
