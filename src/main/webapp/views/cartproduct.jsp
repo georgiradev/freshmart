@@ -73,7 +73,9 @@
             margin-bottom: 1rem;
             transition: box-shadow .2s;
         }
-        .cart-item:hover { box-shadow: 0 4px 18px rgba(0,0,0,.11); }
+        @media (hover: hover) {
+            .cart-item:hover { box-shadow: 0 4px 18px rgba(0,0,0,.11); }
+        }
         .cart-item-img {
             width: 80px; height: 80px; border-radius: 10px;
             overflow: hidden; flex-shrink: 0; background: #f0f4f0;
@@ -106,7 +108,9 @@
             transition: background .15s;
             cursor: pointer;
         }
-        .qty-btn:hover { background: #e8e8e8; color: var(--green-dark); text-decoration: none; }
+        @media (hover: hover) {
+            .qty-btn:hover { background: #e8e8e8; color: var(--green-dark); text-decoration: none; }
+        }
         .qty-value {
             min-width: 36px; text-align: center;
             font-size: .95rem; font-weight: 700; color: #1a1a2e;
@@ -156,7 +160,9 @@
             width: 100%; margin-top: 1rem;
             transition: opacity .2s, transform .1s; cursor: pointer;
         }
-        .btn-checkout:hover { opacity: .9; transform: translateY(-1px); }
+        @media (hover: hover) {
+            .btn-checkout:hover { opacity: .9; transform: translateY(-1px); }
+        }
         .btn-clear {
             display: block; text-align: center; margin-top: .75rem;
             color: #adb5bd; font-size: .82rem; text-decoration: none;
@@ -181,6 +187,25 @@
             transition: background .2s;
         }
         .btn-shop:hover { background: var(--green-dark); color: white; text-decoration: none; }
+
+        /* ── Mobile cart layout ── */
+        @media (max-width: 575px) {
+            .page-wrap { padding: 0 1rem; margin: 1.5rem auto; }
+            .page-title { font-size: 1.4rem; }
+            .cart-item {
+                flex-wrap: wrap;
+                padding: .85rem 1rem;
+                gap: .6rem .75rem;
+                align-items: center;
+            }
+            .cart-item-img { width: 58px; height: 58px; }
+            /* Image + info fill the first row */
+            .cart-item-info { flex: 1; min-width: calc(100% - 80px); }
+            /* Stepper, subtotal, remove wrap to second row — push right */
+            .qty-stepper { margin-left: auto; }
+            .cart-item-subtotal { min-width: 0; font-size: 1rem; }
+            .btn-remove { padding: .4rem .75rem; }
+        }
 
         footer {
             background: var(--green-dark); color: rgba(255,255,255,.6);
