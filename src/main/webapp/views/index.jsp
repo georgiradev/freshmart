@@ -252,16 +252,18 @@
                                     <c:choose>
                                         <c:when test="${not empty cartMap[product.id]}">
                                             <%-- Product is in cart: show stepper --%>
-                                            <div>
+                                            <div class="cart-stepper-wrap">
                                                 <span class="in-cart-badge"><i class="fas fa-check-circle"></i> In cart</span>
-                                                <div class="qty-stepper">
-                                                    <a href="/cart/decrease?itemId=${cartMap[product.id].id}&from=home" class="qty-btn" title="Remove one">
+                                                <div class="qty-stepper"
+                                                     data-item-id="${cartMap[product.id].id}"
+                                                     data-product-id="${product.id}">
+                                                    <button type="button" class="qty-btn qty-decrease" title="Remove one">
                                                         <i class="fas fa-minus" style="font-size:.6rem;"></i>
-                                                    </a>
+                                                    </button>
                                                     <span class="qty-value">${cartMap[product.id].quantity}</span>
-                                                    <a href="/cart/increase?itemId=${cartMap[product.id].id}&from=home" class="qty-btn" title="Add one">
+                                                    <button type="button" class="qty-btn qty-increase" title="Add one">
                                                         <i class="fas fa-plus" style="font-size:.6rem;"></i>
-                                                    </a>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </c:when>
@@ -298,5 +300,35 @@
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script src="/js/theme.js"></script>
+<script>
+(function () {
+    document.querySelectorAll('.qty-stepper').forEach(function (stepper) {
+        var itemId = stepper.dataset.itemId;
+        var productId = stepper.dataset.productId;
+        stepper.querySelector('.qty-increase').addEventListener('click', function () {
+            updateQty(itemId, 'increase', stepper, productId);
+        });
+        stepper.querySelector('.qty-decrease').addEventListener('click', function () {
+            updateQty(itemId, 'decrease', stepper, productId);
+        });
+    });
+
+    function updateQty(itemId, action, stepper, productId) {
+        fetch('/cart/update?itemId=' + itemId + '&action=' + action)
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+                if (data.removed) {
+                    stepper.parentElement.innerHTML =
+                        '<form action="/cart/add" method="post" style="margin:0;">' +
+                        '<input type="hidden" name="productId" value="' + productId + '">' +
+                        '<button type="submit" class="btn-cart"><i class="fas fa-cart-plus"></i></button>' +
+                        '</form>';
+                } else {
+                    stepper.querySelector('.qty-value').textContent = data.quantity;
+                }
+            });
+    }
+})();
+</script>
 </body>
 </html>
