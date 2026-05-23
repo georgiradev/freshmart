@@ -169,18 +169,24 @@
         .btn-cart:hover { background: var(--green-dark); }
 
         /* ── In-cart quantity stepper ── */
+        .cart-stepper-wrap {
+            display: flex; flex-direction: column; align-items: flex-end;
+        }
         .qty-stepper {
             display: flex; align-items: center;
             background: #f4f4f4; border-radius: 8px; overflow: hidden;
         }
         .qty-btn {
             display: flex; align-items: center; justify-content: center;
-            width: 30px; height: 30px;
+            width: 34px; height: 34px;
             background: none; border: none;
             color: var(--green-dark); font-size: .85rem; font-weight: 700;
             text-decoration: none; transition: background .15s; flex-shrink: 0;
+            cursor: pointer;
         }
-        .qty-btn:hover { background: #e0e0e0; color: var(--green-dark); text-decoration: none; }
+        @media (hover: hover) {
+            .qty-btn:hover { background: #e0e0e0; color: var(--green-dark); }
+        }
         .qty-value {
             min-width: 28px; text-align: center;
             font-size: .88rem; font-weight: 700; color: #1a1a2e;
@@ -189,6 +195,10 @@
             font-size: .68rem; font-weight: 700; text-transform: uppercase;
             letter-spacing: .4px; color: var(--green-mid); display: block;
             margin-bottom: .15rem;
+        }
+        @media (max-width: 575px) {
+            .product-price { font-size: 1rem; }
+            .product-footer { flex-wrap: wrap; gap: .4rem; }
         }
 
         /* ── Empty state ── */
@@ -340,10 +350,11 @@
     }
 
     function attachAddToCart(form) {
-        form.addEventListener('submit', function (e) {
+        var btn = form.querySelector('button');
+        btn.addEventListener('click', function (e) {
             e.preventDefault();
+            if (btn.disabled) return;
             var productId = form.dataset.productId;
-            var btn = form.querySelector('button');
             btn.disabled = true;
             fetch('/cart/add/ajax?productId=' + productId, { method: 'POST' })
                 .then(function (r) { return r.json(); })
