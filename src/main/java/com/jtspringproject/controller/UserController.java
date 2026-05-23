@@ -246,6 +246,25 @@ public class UserController {
     return "redirect:/";
   }
 
+  /** AJAX endpoint — adds product to cart and returns the new cart item info as JSON. */
+  @ResponseBody
+  @PostMapping(value = "/cart/add/ajax", produces = "application/json")
+  public Map<String, Object> addToCartAjax(@RequestParam int productId) {
+    String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    User user = userService.getUserByUsername(username);
+    Product product = productService.getProduct(productId);
+    cartService.addProduct(user, product, 1);
+    List<CartProduct> items = cartService.getCartItems(user);
+    CartProduct added = items.stream()
+        .filter(i -> i.getProduct().getId() == productId)
+        .findFirst().orElse(null);
+    Map<String, Object> result = new HashMap<>();
+    result.put("itemId", added != null ? added.getId() : -1);
+    result.put("quantity", added != null ? added.getQuantity() : 1);
+    result.put("cartItemCount", items.size());
+    return result;
+  }
+
   @GetMapping("/cart/remove")
   public String removeFromCart(@RequestParam int itemId) {
     cartService.removeItem(itemId);
