@@ -110,13 +110,13 @@
         }
         .product-img-wrap {
             background: #f0f4f0;
-            height: 175px;
+            height: 160px;
             overflow: hidden;
         }
         .product-img-wrap img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
         }
         .product-body {
             padding: 1rem 1.1rem;
