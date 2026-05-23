@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mvn clean:*)",
+      "Bash(mvn dependency:build-classpath:*)",
+      "Bash(mvn org.apache.maven.plugins:maven-dependency-plugin:3.8.1:build-classpath:*)",
+      "Bash(powershell:*)"
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="240" viewBox="0 0 320 240">
+  <rect width="320" height="240" fill="#e0f7fa" rx="12"/>
+  <rect x="125" y="55" width="70" height="110" rx="8" fill="#4dd0e1"/>
+  <rect x="118" y="48" width="84" height="20" rx="5" fill="#00acc1"/>
+  <rect x="130" y="80" width="60" height="70" rx="4" fill="#80deea" opacity="0.5"/>
+  <line x1="195" y1="100" x2="225" y2="90" stroke="#00acc1" stroke-width="6" stroke-linecap="round"/>
+  <line x1="225" y1="90" x2="225" y2="115" stroke="#00acc1" stroke-width="5" stroke-linecap="round"/>
+  <rect x="60" y="183" width="200" height="36" rx="8" fill="#00838f"/>
+  <text x="160" y="208" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="bold" fill="white">Drinks</text>
+</svg>

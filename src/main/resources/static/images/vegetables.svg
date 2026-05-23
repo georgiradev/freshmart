@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="240" viewBox="0 0 320 240">
+  <rect width="320" height="240" fill="#f1f8e9" rx="12"/>
+  <ellipse cx="160" cy="110" rx="30" ry="70" fill="#8bc34a"/>
+  <ellipse cx="120" cy="120" rx="25" ry="60" fill="#7cb342" transform="rotate(-20,120,120)"/>
+  <ellipse cx="200" cy="120" rx="25" ry="60" fill="#9ccc65" transform="rotate(20,200,120)"/>
+  <rect x="145" y="40" width="30" height="50" fill="#ff7043"/>
+  <rect x="60" y="185" width="200" height="36" rx="8" fill="#558b2f"/>
+  <text x="160" y="210" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="bold" fill="white">Vegetables</text>
+</svg>
