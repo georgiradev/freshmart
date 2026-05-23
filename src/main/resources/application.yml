@@ -1,166 +1,59 @@
-app:
-  currency:
-    symbol: "€"
+spring:
+  config:
+    import: "optional:classpath:products.yml"
 
-catalog:
-  products:
-    - name: "Apple"
-      description: "Fresh and juicy"
-      price: 3
-      weight: 76
-      category: "Fruits"
-      image: "/images/products/apple.svg"
+  # H2 In-Memory DataSource (local dev)
+  datasource:
+    url: jdbc:h2:mem:ecommjava;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL;DEFAULT_NULL_ORDERING=HIGH;NON_KEYWORDS=VALUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
 
-    - name: "Banana"
-      description: "Sweet and tropical"
-      price: 2
-      weight: 120
-      category: "Fruits"
-      image: "/images/products/banana.svg"
+  # H2 Console — http://localhost:8080/h2-console
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
 
-    - name: "Orange"
-      description: "Rich in vitamins"
-      price: 3
-      weight: 180
-      category: "Fruits"
-      image: "/images/products/orange.svg"
+  # JPA / Hibernate
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
 
-    - name: "Strawberries"
-      description: "Juicy summer fruit"
-      price: 5
-      weight: 300
-      category: "Fruits"
-      image: "/images/products/strawberries.svg"
+  # Flyway
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
 
-    - name: "Carrot"
-      description: "Crunchy and healthy"
-      price: 2
-      weight: 200
-      category: "Vegetables"
-      image: "/images/products/carrot.svg"
+  # MVC / JSP
+  mvc:
+    view:
+      prefix: /views/
+      suffix: .jsp
 
-    - name: "Spinach"
-      description: "Fresh leafy greens"
-      price: 3
-      weight: 150
-      category: "Vegetables"
-      image: "/images/products/spinach.svg"
+  # File uploads + Encoding
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+    encoding:
+      charset: UTF-8
+      force: true
 
-    - name: "Tomato"
-      description: "Garden fresh tomatoes"
-      price: 2
-      weight: 250
-      category: "Vegetables"
-      image: "/images/products/tomato.svg"
+server:
+  port: ${PORT:8080}
 
-    - name: "Beef Steak"
-      description: "Premium quality beef"
-      price: 25
-      weight: 500
-      category: "Meat"
-      image: "/images/products/beef-steak.svg"
-
-    - name: "Chicken Breast"
-      description: "Free-range chicken"
-      price: 12
-      weight: 400
-      category: "Meat"
-      image: "/images/products/chicken-breast.svg"
-
-    - name: "Salmon Fillet"
-      description: "Wild-caught Atlantic salmon"
-      price: 18
-      weight: 300
-      category: "Fish"
-      image: "/images/products/salmon-fillet.svg"
-
-    - name: "Cod Fillet"
-      description: "Fresh white fish"
-      price: 14
-      weight: 350
-      category: "Fish"
-      image: "/images/products/cod-fillet.svg"
-
-    - name: "Whole Milk"
-      description: "Organic whole milk"
-      price: 2
-      weight: 1000
-      category: "Dairy"
-      image: "/images/products/whole-milk.svg"
-
-    - name: "Greek Yogurt"
-      description: "Creamy Greek style"
-      price: 3
-      weight: 500
-      category: "Dairy"
-      image: "/images/products/greek-yogurt.svg"
-
-    - name: "Cheddar Cheese"
-      description: "Aged cheddar"
-      price: 6
-      weight: 400
-      category: "Dairy"
-      image: "/images/products/cheddar-cheese.svg"
-
-    - name: "Sourdough Bread"
-      description: "Freshly baked sourdough"
-      price: 4
-      weight: 800
-      category: "Bakery"
-      image: "/images/products/sourdough-bread.svg"
-
-    - name: "Croissant"
-      description: "Buttery and flaky"
-      price: 2
-      weight: 100
-      category: "Bakery"
-      image: "/images/products/croissant.svg"
-
-    - name: "Orange Juice"
-      description: "Cold-pressed goodness"
-      price: 3
-      weight: 1000
-      category: "Drinks"
-      image: "/images/products/orange-juice.svg"
-
-    - name: "Sparkling Water"
-      description: "Sparkling mineral water"
-      price: 1
-      weight: 500
-      category: "Drinks"
-      image: "/images/products/sparkling-water.svg"
-
-    - name: "Dark Chocolate"
-      description: "70% dark chocolate"
-      price: 4
-      weight: 100
-      category: "Sweets"
-      image: "/images/products/dark-chocolate.svg"
-
-    - name: "Gummy Bears"
-      description: "Assorted flavors"
-      price: 2
-      weight: 200
-      category: "Sweets"
-      image: "/images/products/gummy-bears.svg"
-
-    - name: "Olive Oil"
-      description: "Extra virgin, cold pressed"
-      price: 8
-      weight: 750
-      category: "Other"
-      image: "/images/products/olive-oil.svg"
-
-    - name: "Pink Salt"
-      description: "Himalayan pink salt"
-      price: 3
-      weight: 500
-      category: "Other"
-      image: "/images/products/pink-salt.svg"
-
-    - name: "Cracked Eggs"
-      description: "Woops! There goes the eggs..."
-      price: 1
-      weight: 43
-      category: "Other"
-      image: "/images/products/cracked-eggs.svg"
+logging:
+  level:
+    com.jtspringproject: DEBUG
+    org.springframework.security: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

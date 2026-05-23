@@ -14,12 +14,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Syncs the product catalog from application.yml into the database on every startup.
+ * Syncs the product catalog from products.yml into the database on every startup.
  * Products are matched by name:
  *   - Existing product → price, description, weight and image are updated from config.
  *   - New product (not in DB) → inserted with a default stock quantity of 100.
  *
- * To change a price or add a product, edit the catalog section in application.yml and restart.
+ * To change a price or add a product, edit the catalog section in products.yml and restart.
  */
 @Component
 @Slf4j
@@ -71,7 +71,7 @@ public class ProductDataLoader implements ApplicationRunner {
             productDao.save(product);
         }
 
-        log.info("Catalog loader: {} products updated, {} products inserted from application.yml",
+        log.info("Catalog loader: {} products updated, {} products inserted from products.yml",
                  updated, inserted);
     }
 }
