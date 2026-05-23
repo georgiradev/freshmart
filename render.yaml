@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: freshmart
+    env: docker
+    plan: free
+    healthCheckPath: /login
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: DB_HOST
+        fromDatabase:
+          name: freshmart-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: freshmart-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: freshmart-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: freshmart-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: freshmart-db
+          property: password
+
+databases:
+  - name: freshmart-db
+    plan: free
+    databaseName: freshmart
+    user: freshmart_user

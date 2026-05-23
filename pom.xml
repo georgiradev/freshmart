@@ -10,13 +10,14 @@
         <relativePath/>
     </parent>
     <groupId>com.jtspringproject</groupId>
-    <artifactId>JtSpringProject</artifactId>
+    <artifactId>e-commerce-project-freshmart</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>JtSpringProject</name>
-    <description>Spring project for Java Technology - E-commerce application</description>
+    <packaging>war</packaging>
+    <name>e-commerce-project-freshmart</name>
+    <description>FreshMart - Fresh groceries e-commerce application</description>
 
     <properties>
-        <java.version>25</java.version>
+        <java.version>21</java.version>
         <lombok.version>1.18.40</lombok.version>
     </properties>
 
@@ -44,6 +45,10 @@
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
+        </dependency>
 
         <!-- JSP support -->
         <dependency>
@@ -57,6 +62,20 @@
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
+        </dependency>
+
+        <!-- Embedded Tomcat as provided scope for WAR packaging -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- PostgreSQL driver (used in production) -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- H2 in-memory database (replaces MySQL) -->

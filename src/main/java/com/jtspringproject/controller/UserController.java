@@ -8,10 +8,7 @@ import com.jtspringproject.services.CartService;
 import com.jtspringproject.services.ProductService;
 import com.jtspringproject.services.UserService;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.util.Base64;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -177,24 +174,12 @@ public class UserController {
       return null;
     }
     try {
-      String ext = getExtension(file.getOriginalFilename());
-      String filename = "user_" + userId + "_" + System.currentTimeMillis() + ext;
-      Path uploadDir = Paths.get("uploads/profiles");
-      Files.createDirectories(uploadDir);
-      Files.copy(file.getInputStream(), uploadDir.resolve(filename), StandardCopyOption.REPLACE_EXISTING);
-      log.info("Saved profile photo: {}", filename);
-      return "/uploads/profiles/" + filename;
+      String base64 = Base64.getEncoder().encodeToString(file.getBytes());
+      return "data:" + contentType + ";base64," + base64;
     } catch (IOException e) {
-      log.error("Failed to save profile photo: {}", e.getMessage());
+      log.error("Failed to process profile photo: {}", e.getMessage());
       return null;
     }
-  }
-
-  private String getExtension(String filename) {
-    if (filename != null && filename.contains(".")) {
-      return filename.substring(filename.lastIndexOf('.'));
-    }
-    return ".jpg";
   }
 
   // ── Cart ──
