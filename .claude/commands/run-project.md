@@ -1,8 +1,8 @@
 # /run-project
 
-Start, build, or troubleshoot the Spring Boot e-commerce project.
+Start, build, or troubleshoot the FreshMart Spring Boot project.
 
-**Usage:** `/run-project [build|run|test|reset-db]`
+**Usage:** `/run-project [build|run|test|stop]`
 
 ## Commands
 
@@ -12,7 +12,7 @@ mvn clean package -DskipTests
 ```
 Output JAR: `target/JtSpringProject-0.0.1-SNAPSHOT.jar`
 
-### Run (dev mode with hot reload)
+### Run (local — H2 in-memory, no DB setup needed)
 ```bash
 mvn spring-boot:run
 ```
@@ -28,27 +28,37 @@ java -jar target/JtSpringProject-0.0.1-SNAPSHOT.jar
 mvn test
 ```
 
-### Reset Database
-```bash
-mysql -u root -p ecommjava < basedata.sql
+### Stop (Windows)
+```powershell
+$pid = (Get-NetTCPConnection -LocalPort 8080).OwningProcess | Select -First 1
+Stop-Process -Id $pid -Force
 ```
-Seeds: 9 categories, 2 users (admin/123, lisa/765), 2 products
+
+## Default Credentials
+| Role  | Username | Password |
+|-------|----------|----------|
+| Admin | `admin`  | `123`    |
+| User  | `lisa`   | `765`    |
+
+## Database
+- **Local:** H2 in-memory — no setup, schema managed by Flyway migrations in `src/main/resources/db/migration/`
+- **Production:** PostgreSQL on Render, activated via `spring.profiles.active=prod`
 
 ## Common Startup Errors
 
 | Error | Cause | Fix |
 |-------|-------|-----|
-| `Access denied for user 'root'` | Wrong DB password | Update `db.password` in `application.properties` |
-| `Communications link failure` | MySQL not running | Start MySQL service |
-| `Port 8080 already in use` | Another process on 8080 | `kill $(lsof -t -i:8080)` or change `server.port` |
-| JSP not found / 404 on views | Wrong working directory in IntelliJ | Set working directory to `$MODULE_WORKING_DIR$` |
-| `HibernateJpaAutoConfiguration` error | Wrong Spring Boot config | Ensure `@SpringBootApplication(exclude = HibernateJpaAutoConfiguration.class)` |
-| Lazy loading exception | Entity loaded outside session | `enable_lazy_load_no_trans=true` is set — check if session closed early |
+| `Port 8080 already in use` | Another process on 8080 | Kill existing process (see Stop above) |
+| JSP not found / 404 on views | Wrong working directory | Set IntelliJ run config working directory to `$MODULE_WORKING_DIR$` |
+| `FlywayException: Migration checksum mismatch` | Migration file was edited after running | Drop H2 DB (restart resets it) or fix migration |
+| `LazyInitializationException` | Entity loaded outside JPA session | Add `spring.jpa.open-in-view=true` or use `FetchType.EAGER` |
+| `DataIntegrityViolationException` on startup | ProductDataLoader conflict | Restart — ProductDataLoader uses `findByName` to avoid duplicates |
 
-## Database Connection Config
-File: `src/main/resources/application.properties`
-```properties
-db.url=jdbc:mysql://localhost:3306/ecommjava?createDatabaseIfNotExist=true
-db.username=root
-db.password=root_password
-```
+## Config Files
+| File | Purpose |
+|------|---------|
+| `src/main/resources/application.properties` | Local H2 datasource + JPA |
+| `src/main/resources/application.yml` | Currency symbol + full product catalog |
+| `src/main/resources/application-prod.yml` | Production PostgreSQL config |
+
+ARGUMENTS: run

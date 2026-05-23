@@ -4,37 +4,54 @@ Add a new endpoint to this Spring Boot MVC project.
 
 **Usage:** `/add-endpoint <HTTP_METHOD> <path> <description>`
 
-**Example:** `/add-endpoint GET /user/cart "Show cart contents for logged-in user"`
+**Example:** `/add-endpoint GET /cart "Show cart contents for logged-in user"`
 
 ## Steps
 
 1. **Determine the controller** based on the path:
    - `/admin/**` → `AdminController.java`
-   - `/user/**` or `/` → `UserController.java`
-   - New domain → ask whether to create a new controller
+   - `/` or user paths → `UserController.java`
+   - New domain → consider a new `@Controller` class
 
-2. **Read the target controller file** before editing
+2. **Read the target controller** before editing
 
 3. **Add the endpoint** following existing patterns:
+
+   ### Standard MVC (returns view)
    ```java
    @GetMapping("/path")
-   public ModelAndView myHandler(Model model) {
+   public ModelAndView myHandler() {
        ModelAndView mv = new ModelAndView("viewName");
        mv.addObject("key", service.getData());
        return mv;
    }
    ```
-   - For POST handlers, return `"redirect:/path"` after action
-   - For authenticated user data: `SecurityContextHolder.getContext().getAuthentication().getName()`
-   - Never use raw JDBC — always go through service layer
+   - POST handlers redirect after action: `return "redirect:/path";`
+   - Get current user: `SecurityContextHolder.getContext().getAuthentication().getName()`
+   - Never use raw JDBC — always go through the service layer
+
+   ### AJAX endpoint (returns JSON)
+   ```java
+   @ResponseBody
+   @PostMapping(value = "/some/ajax", produces = "application/json")
+   public Map<String, Object> ajaxHandler(@RequestParam int id) {
+       Map<String, Object> result = new HashMap<>();
+       result.put("key", value);
+       return result;
+   }
+   ```
 
 4. **Create JSP view** if needed at `src/main/webapp/views/<viewName>.jsp`
-   - Include JSTL taglib: `<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>`
-   - Iterate collections with `<c:forEach var="item" items="${key}">`
-   - Display attributes with `${item.fieldName}`
+   - Include JSTL: `<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>`
+   - Iterate with `<c:forEach var="item" items="${key}">`
+   - Display with `${item.fieldName}`
+   - Match FreshMart design: cream background (`#f8f5f0`), green-dark navbar (`#1b4332`)
 
-5. **Update security** if the path needs different access:
-   - `/admin/**` is already protected by `SecurityConfiguration` Chain 1 (ROLE_ADMIN)
-   - Add public paths to Chain 2's `permitAll()` list if needed
+5. **Update security** if the path needs a different access level:
+   - `/admin/**` is already protected (ROLE_ADMIN) by SecurityConfiguration Chain 1
+   - Add public paths to Chain 2's `permitAll()` list in `SecurityConfiguration.java`
+   - Both chains have CSRF disabled
 
-6. **Confirm** the endpoint is reachable at `http://localhost:8080<path>`
+6. **Global model attributes** — `username`, `profileImage`, `currencySymbol`, `cartMap` are injected by `GlobalModelAttributes.java` into every view automatically
+
+7. **Confirm** at `http://localhost:8080<path>`

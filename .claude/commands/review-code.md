@@ -12,30 +12,43 @@ Review a file or feature in this project for bugs, security issues, and style co
 ## Checklist Applied During Review
 
 ### Correctness
-- [ ] All DAO mutating methods have `@Transactional`
-- [ ] No missing `@Transactional` on update/delete methods (known bug in ProductDao)
-- [ ] Entity relationships correctly mapped (cascade types intentional)
-- [ ] HQL uses `@Entity(name=...)` value, not Java class name
+- [ ] JpaRepository methods used correctly (`save`, `findById`, `deleteById`, `existsById`)
+- [ ] `Optional` results are unwrapped safely (`.orElse(null)` or `.orElseThrow()`)
+- [ ] Entity relationships have correct `FetchType` — lazy by default, `EAGER` only when justified
+- [ ] Cascade types are intentional (no accidental `CascadeType.ALL` on owning side)
+- [ ] ProductDataLoader syncs catalog on startup — `findByName` must exist on `ProductDao`
 
 ### Security
-- [ ] No plain-text password storage or comparison
-- [ ] No raw JDBC with hardcoded credentials
-- [ ] No string concatenation in queries (SQL injection)
-- [ ] No sensitive data exposed in JSP views
-- [ ] Admin endpoints protected by ROLE_ADMIN
+- [ ] No plain-text password storage — use `PasswordEncoder.encode()` on save
+- [ ] No raw JDBC — all DB access through JpaRepository DAOs
+- [ ] No string concatenation in queries (use derived query methods or `@Query` with `:param`)
+- [ ] No sensitive data (password, full profile) exposed in JSON responses
+- [ ] Admin endpoints under `/admin/**` (auto-protected), user endpoints under `/**`
 
 ### Spring MVC Patterns
 - [ ] Controllers call services (not DAOs directly)
-- [ ] Services contain business logic (not controllers)
-- [ ] DAOs only do DB operations
+- [ ] Services contain business logic (not controllers or DAOs)
+- [ ] DAOs are interfaces extending `JpaRepository` — no implementation class
 - [ ] Views use JSTL `${...}` not scriptlets `<% %>`
-- [ ] Redirects after POST (PRG pattern)
+- [ ] POST handlers redirect after action (PRG pattern)
+- [ ] AJAX endpoints annotated with `@ResponseBody` and `produces = "application/json"`
+
+### Entity / JPA
+- [ ] All entities have `@Getter @Setter @NoArgsConstructor` (Lombok)
+- [ ] PK uses `@GeneratedValue(strategy = GenerationType.IDENTITY)`
+- [ ] Table names match Flyway migration (`CUSTOMER`, `PRODUCT`, `CATEGORY`, `CART`, `CART_PRODUCT`)
+- [ ] No `@Data` on entities (unsafe for JPA — causes issues with `equals`/`hashCode`)
+
+### Frontend / JSP
+- [ ] Hover effects on touch elements wrapped in `@media (hover: hover)`
+- [ ] Mobile breakpoints present for any multi-column flex layout
+- [ ] AJAX cart interactions use `fetch()` — no full-page reloads for add/update
+- [ ] DOM manipulation uses `replaceChild` not `innerHTML` when siblings must be preserved
 
 ### Code Quality
-- [ ] No `System.out.println` (use logger)
-- [ ] No commented-out dead code left in place
-- [ ] No typos in method names (known: `deletProduct`, `deletCategory`)
-- [ ] Consistent naming: `camelCase` fields, `PascalCase` classes
+- [ ] No `System.out.println` (use `@Slf4j` + `log.info/warn/error`)
+- [ ] No commented-out dead code
+- [ ] Consistent naming: `camelCase` fields, `PascalCase` classes, `UPPER_SNAKE` constants
 
 ## Output Format
 For each issue found:

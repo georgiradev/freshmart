@@ -4,35 +4,42 @@ Audit and fix security issues in this Spring Boot e-commerce project.
 
 **Usage:** `/fix-security [scope]`
 
-Scope can be: `passwords`, `validation`, `jdbc`, `csrf`, `all` (default: `all`)
+Scope options: `passwords`, `validation`, `xss`, `csrf`, `all` (default: `all`)
 
-## Known Issues to Address
+## Current Security Posture
 
-### 1. Plain-text Passwords (`passwords`)
-- Location: `UserService.java` — `addUser()` saves password as-is
-- Location: `UserDao.java` — `getUser()` compares plain text
-- Fix: inject `BCryptPasswordEncoder` (already a bean in `SecurityConfiguration`) into `UserService`, hash on save, use `passwordEncoder.matches()` on login
-- Also update `basedata.sql` seed passwords to BCrypt hashes
+### Passwords — RESOLVED
+- BCrypt via `DelegatingPasswordEncoder`
+- Seed data in Flyway uses `{noop}` prefix (plain-text wrapped for migration only)
+- New registrations are hashed via `PasswordEncoder` in `UserService`
+- `PasswordEncoderConfig.java` holds the `PasswordEncoder` bean (avoids circular dep)
 
-### 2. Raw JDBC with Hardcoded Credentials (`jdbc`)
-- Location: `AdminController.java` — `profileDisplay()` and `updateUserProfile()`
-- Fix: remove raw JDBC code, route through `UserService.getUserByUsername()` and a new `UserService.updateUser()` method
-- The `UserDao` already has `getUserByUsername()` — just wire it up
+### Raw JDBC — RESOLVED
+- Old `AdminController.profileDisplay` raw JDBC has been replaced with service layer calls
+- All DB access goes through `JpaRepository` DAOs → services → controllers
 
-### 3. Input Validation (`validation`)
-- Add Bean Validation to entity fields: `@NotBlank`, `@Size`, `@Email`, `@Min`
-- Add `@Valid` to controller method parameters
-- Add `BindingResult` handling and redirect with error messages
+### CSRF — INTENTIONALLY DISABLED
+- Both security chains have CSRF disabled
+- Acceptable for an internal/demo application
+- To enable: add `<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>` to every JSP form
 
-### 4. CSRF (`csrf`)
-- Evaluate whether to enable CSRF (requires `<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>` in every JSP form)
-- Or document why it's intentionally disabled (e.g., internal tool)
+## Remaining Issues to Address
 
-### 5. SQL Injection in JDBC (`jdbc`)
-- Same JDBC code in AdminController uses string concatenation
-- Fix by removing that code (covered by item 2)
+### 1. Input Validation (`validation`)
+- Entities have no `@NotBlank`, `@Size`, `@Email`, `@Min` constraints
+- Controllers don't use `@Valid` + `BindingResult`
+- Fix: add Bean Validation annotations to entity fields, add `@Valid` to controller params
+
+### 2. XSS in JSP (`xss`)
+- Some JSP views output `${variable}` without escaping
+- Fix: use `<c:out value="${variable}"/>` for user-supplied content, or ensure JSTL EL escaping is on
+
+### 3. Sensitive Data Exposure
+- Admin panel at `/admin/**` is protected but no rate limiting on login endpoints
+- Profile images are stored as base64 strings in DB — large payloads possible
 
 ## After Fixing
-- Re-run `mvn test` to ensure nothing broke
-- Test login flows: admin login, user login, registration
-- Verify profile update still works
+- Run `mvn test` to ensure nothing broke
+- Test login flows: admin login (`admin/123`), user login (`lisa/765`), registration
+- Test cart add/update with invalid product IDs
+- Test admin CRUD with boundary inputs
