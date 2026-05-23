@@ -85,7 +85,7 @@ public class CartService {
   }
 
   /** Returns all items in the user's cart. */
-  @Transactional(readOnly = true)
+  @Transactional
   public List<CartProduct> getCartItems(User user) {
     Cart cart = getOrCreateCart(user);
     return cartProductDao.findByCart_Id(cart.getId());
