@@ -324,12 +324,15 @@
             .then(function (r) { return r.json(); })
             .then(function (data) {
                 if (data.removed) {
-                    var wrap = stepper.parentElement;
-                    wrap.innerHTML =
-                        '<form class="add-to-cart-form" style="margin:0;" data-product-id="' + productId + '">' +
-                        '<button type="submit" class="btn-cart"><i class="fas fa-cart-plus"></i></button>' +
-                        '</form>';
-                    attachAddToCart(wrap.querySelector('.add-to-cart-form'));
+                    var stepperWrap = stepper.parentElement; // .cart-stepper-wrap
+                    var footer = stepperWrap.parentElement;  // .product-footer
+                    var form = document.createElement('form');
+                    form.className = 'add-to-cart-form';
+                    form.style.margin = '0';
+                    form.dataset.productId = productId;
+                    form.innerHTML = '<button type="submit" class="btn-cart"><i class="fas fa-cart-plus"></i></button>';
+                    footer.replaceChild(form, stepperWrap);
+                    attachAddToCart(form);
                 } else {
                     stepper.querySelector('.qty-value').textContent = data.quantity;
                 }
