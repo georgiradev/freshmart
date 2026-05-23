@@ -87,9 +87,14 @@ public class UserController {
     }
     User user = userService.getUserByUsername(username);
     if (user != null) {
-      Map<Integer, CartProduct> cartMap = cartService.getCartItems(user).stream()
+      List<CartProduct> cartItems = cartService.getCartItems(user);
+      Map<Integer, CartProduct> cartMap = cartItems.stream()
           .collect(Collectors.toMap(cp -> cp.getProduct().getId(), cp -> cp));
+      int cartTotal = cartItems.stream().mapToInt(i -> i.getProduct().getPrice() * i.getQuantity()).sum();
+      int cartTotalItems = cartItems.stream().mapToInt(CartProduct::getQuantity).sum();
       mView.addObject("cartMap", cartMap);
+      mView.addObject("cartTotal", cartTotal);
+      mView.addObject("cartTotalItems", cartTotalItems);
       mView.addObject("profileImage", user.getProfileImage());
     }
     return mView;
@@ -258,10 +263,14 @@ public class UserController {
     CartProduct added = items.stream()
         .filter(i -> i.getProduct().getId() == productId)
         .findFirst().orElse(null);
+    int cartTotal = items.stream().mapToInt(i -> i.getProduct().getPrice() * i.getQuantity()).sum();
+    int cartTotalItems = items.stream().mapToInt(CartProduct::getQuantity).sum();
     Map<String, Object> result = new HashMap<>();
     result.put("itemId", added != null ? added.getId() : -1);
     result.put("quantity", added != null ? added.getQuantity() : 1);
     result.put("cartItemCount", items.size());
+    result.put("cartTotal", cartTotal);
+    result.put("cartTotalItems", cartTotalItems);
     return result;
   }
 

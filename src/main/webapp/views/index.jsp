@@ -4,6 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231b4332'/><text y='.9em' font-size='80'>🌿</text></svg>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>FreshMart &mdash; Shop Fresh</title>
     <script>(function(){var t=localStorage.getItem('freshmart-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
@@ -58,7 +59,24 @@
             transition: background .2s;
             white-space: nowrap;
         }
-        .btn-nav:hover { background: rgba(255,255,255,.22); color: white; text-decoration: none; }
+        @media (hover: hover) {
+            .btn-nav:hover { background: rgba(255,255,255,.22); color: white; text-decoration: none; }
+        }
+
+        /* ── Cart nav button ── */
+        .btn-nav-cart { position: relative; display: flex; align-items: center; gap: .4rem; padding: .4rem .75rem; }
+        .cart-count-badge {
+            position: absolute; top: -7px; right: -7px;
+            background: var(--orange); color: #1a1a1a;
+            border-radius: 50%; font-size: .72rem; font-weight: 800;
+            min-width: 20px; height: 20px;
+            display: flex; align-items: center; justify-content: center;
+            line-height: 1; pointer-events: none;
+            border: 2px solid var(--green-dark);
+        }
+        .cart-count-badge:empty { display: none; }
+        .cart-total-text { font-size: .84rem; }
+        @media (max-width: 575px) { .cart-total-text { display: none; } }
         .btn-nav-accent { background: var(--orange); border-color: var(--orange); }
         .btn-nav-accent:hover { background: #d4920a; border-color: #d4920a; }
 
@@ -228,7 +246,16 @@
             </a>
             <span class="nav-user-text d-none d-sm-inline">Hello, <strong>${username}</strong></span>
         </div>
-        <a href="/cart" class="btn-nav"><i class="fas fa-shopping-cart mr-1"></i><span class="d-none d-sm-inline">Cart</span></a>
+        <a href="/cart" class="btn-nav btn-nav-cart" id="nav-cart-btn">
+            <span class="cart-count-badge" id="nav-cart-count">${cartTotalItems > 0 ? cartTotalItems : ''}</span>
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-total-text" id="nav-cart-total">
+                <c:choose>
+                    <c:when test="${cartTotal > 0}">${currencySymbol}${cartTotal}</c:when>
+                    <c:otherwise>Cart</c:otherwise>
+                </c:choose>
+            </span>
+        </a>
         <a href="/logout" class="btn-nav btn-nav-accent"><i class="fas fa-sign-out-alt mr-1"></i><span class="d-none d-sm-inline">Logout</span></a>
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
     </div>
@@ -313,6 +340,15 @@
 <script src="/js/theme.js"></script>
 <script>
 (function () {
+    var CURRENCY = '${currencySymbol}';
+
+    function updateNavCart(total, totalItems) {
+        var badge = document.getElementById('nav-cart-count');
+        var label = document.getElementById('nav-cart-total');
+        if (badge) badge.textContent = totalItems > 0 ? totalItems : '';
+        if (label) label.textContent = total > 0 ? CURRENCY + total : 'Cart';
+    }
+
     // Attach stepper listeners (called on page load and after dynamic insertion)
     function attachSteppers(root) {
         (root || document).querySelectorAll('.qty-stepper').forEach(function (stepper) {
@@ -333,6 +369,7 @@
         fetch('/cart/update?itemId=' + itemId + '&action=' + action)
             .then(function (r) { return r.json(); })
             .then(function (data) {
+                updateNavCart(data.cartTotal, data.cartTotalItems);
                 if (data.removed) {
                     var stepperWrap = stepper.parentElement; // .cart-stepper-wrap
                     var footer = stepperWrap.parentElement;  // .product-footer
@@ -359,6 +396,7 @@
             fetch('/cart/add/ajax?productId=' + productId, { method: 'POST' })
                 .then(function (r) { return r.json(); })
                 .then(function (data) {
+                    updateNavCart(data.cartTotal, data.cartTotalItems);
                     var footer = form.parentElement; // .product-footer
                     var stepperWrap = document.createElement('div');
                     stepperWrap.className = 'cart-stepper-wrap';
