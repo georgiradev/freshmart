@@ -27,3 +27,10 @@ Thumbs.db
 
 # Environment / secrets
 .env
+
+# Node (screenshot tooling)
+node_modules/
+package.json
+package-lock.json
+take-screenshots.js
+take-screenshots.mjs
