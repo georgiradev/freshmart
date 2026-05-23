@@ -7,6 +7,4 @@
   <path d="M126 102 C141 89 179 89 194 102" stroke="#e65100" stroke-width="2" fill="none" opacity="0.5"/>
   <path d="M119 120 C135 107 185 107 201 120" stroke="#e65100" stroke-width="2" fill="none" opacity="0.5"/>
   <ellipse cx="145" cy="91" rx="9" ry="6" fill="rgba(255,255,255,0.4)" transform="rotate(-14,145,91)"/>
-  <rect x="60" y="175" width="200" height="36" rx="8" fill="#bf360c"/>
-  <text x="160" y="200" text-anchor="middle" font-family="Arial,sans-serif" font-size="21" font-weight="bold" fill="white">Croissant</text>
 </svg>

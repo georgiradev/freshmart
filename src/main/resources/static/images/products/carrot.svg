@@ -12,6 +12,4 @@
   <path d="M148 65 C144 50 136 40 133 32" stroke="#66bb6a" stroke-width="3" fill="none" stroke-linecap="round"/>
   <path d="M172 65 C176 50 184 40 187 32" stroke="#66bb6a" stroke-width="3" fill="none" stroke-linecap="round"/>
   <ellipse cx="151" cy="100" rx="5" ry="28" fill="rgba(255,255,255,0.22)" transform="rotate(4,151,100)"/>
-  <rect x="60" y="175" width="200" height="36" rx="8" fill="#e65100"/>
-  <text x="160" y="200" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="bold" fill="white">Carrot</text>
 </svg>
