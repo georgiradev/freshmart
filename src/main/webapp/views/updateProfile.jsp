@@ -272,7 +272,7 @@
 </div>
 
 <footer>
-    &copy; 2025 <strong>FreshMart</strong> &mdash; Fresh produce, delivered daily.
+    &copy; 2026 <strong>FreshMart</strong> &mdash; Fresh produce, delivered daily.
 </footer>
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
