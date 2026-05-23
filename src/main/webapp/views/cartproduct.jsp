@@ -215,7 +215,7 @@
                 <div class="col-lg-8">
                     <h1 class="page-title">
                         Your Cart
-                        <span>${cartItemCount} item<c:if test="${cartItemCount != 1}">s</c:if></span>
+                        <span id="cart-item-count">${cartItemCount} item<c:if test="${cartItemCount != 1}">s</c:if></span>
                     </h1>
 
                     <c:forEach var="item" items="${cartItems}">
@@ -230,16 +230,14 @@
                             </div>
 
                             <!-- Quantity stepper -->
-                            <div class="qty-stepper">
-                                <a href="/cart/decrease?itemId=${item.id}" class="qty-btn"
-                                   title="Remove one">
+                            <div class="qty-stepper" data-item-id="${item.id}" data-price="${item.product.price}">
+                                <button type="button" class="qty-btn qty-decrease" title="Remove one">
                                     <i class="fas fa-minus" style="font-size:.7rem;"></i>
-                                </a>
+                                </button>
                                 <span class="qty-value">${item.quantity}</span>
-                                <a href="/cart/increase?itemId=${item.id}" class="qty-btn"
-                                   title="Add one">
+                                <button type="button" class="qty-btn qty-increase" title="Add one">
                                     <i class="fas fa-plus" style="font-size:.7rem;"></i>
-                                </a>
+                                </button>
                             </div>
 
                             <!-- Row subtotal -->
@@ -259,12 +257,12 @@
                     <div class="summary-card">
                         <h3>Order Summary</h3>
                         <div class="summary-row">
-                            <span>Items (${cartItemCount})</span>
-                            <span>${cartTotalItems} selected</span>
+                            <span id="summary-items-label">Items (${cartItemCount})</span>
+                            <span id="summary-qty">${cartTotalItems} selected</span>
                         </div>
                         <div class="summary-row">
                             <span>Subtotal</span>
-                            <span>${currencySymbol}${cartTotal}</span>
+                            <span id="summary-subtotal">${currencySymbol}${cartTotal}</span>
                         </div>
                         <div class="summary-row">
                             <span>Delivery</span>
@@ -272,7 +270,7 @@
                         </div>
                         <div class="summary-row total">
                             <span>Total</span>
-                            <span>${currencySymbol}${cartTotal}</span>
+                            <span id="summary-total">${currencySymbol}${cartTotal}</span>
                         </div>
                         <button class="btn-checkout">
                             <i class="fas fa-lock mr-2"></i>Proceed to Checkout
@@ -304,5 +302,46 @@
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script src="/js/theme.js"></script>
+<script>
+(function () {
+    var CURRENCY = '${currencySymbol}';
+
+    document.querySelectorAll('.qty-stepper').forEach(function (stepper) {
+        var itemId = stepper.dataset.itemId;
+        stepper.querySelector('.qty-increase').addEventListener('click', function () {
+            updateQty(itemId, 'increase', stepper);
+        });
+        stepper.querySelector('.qty-decrease').addEventListener('click', function () {
+            updateQty(itemId, 'decrease', stepper);
+        });
+    });
+
+    function updateQty(itemId, action, stepper) {
+        fetch('/cart/update?itemId=' + itemId + '&action=' + action)
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+                if (data.removed) {
+                    stepper.closest('.cart-item').remove();
+                } else {
+                    stepper.querySelector('.qty-value').textContent = data.quantity;
+                    stepper.closest('.cart-item').querySelector('.cart-item-subtotal').textContent =
+                        CURRENCY + data.subtotal;
+                }
+                var el;
+                el = document.getElementById('summary-items-label');
+                if (el) el.textContent = 'Items (' + data.cartItemCount + ')';
+                el = document.getElementById('summary-qty');
+                if (el) el.textContent = data.cartTotalItems + ' selected';
+                el = document.getElementById('summary-subtotal');
+                if (el) el.textContent = CURRENCY + data.cartTotal;
+                el = document.getElementById('summary-total');
+                if (el) el.textContent = CURRENCY + data.cartTotal;
+                el = document.getElementById('cart-item-count');
+                if (el) el.textContent = data.cartItemCount + (data.cartItemCount === 1 ? ' item' : ' items');
+                if (data.cartItemCount === 0) window.location.reload();
+            });
+    }
+})();
+</script>
 </body>
 </html>

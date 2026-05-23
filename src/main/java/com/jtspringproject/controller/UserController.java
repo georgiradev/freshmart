@@ -10,6 +10,7 @@ import com.jtspringproject.services.UserService;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -183,6 +185,37 @@ public class UserController {
   }
 
   // ── Cart ──
+
+  /** AJAX endpoint — updates quantity and returns updated totals as JSON. */
+  @ResponseBody
+  @GetMapping(value = "/cart/update", produces = "application/json")
+  public Map<String, Object> updateCartItemAjax(
+      @RequestParam int itemId,
+      @RequestParam String action) {
+    String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    User user = userService.getUserByUsername(username);
+    if ("increase".equals(action)) {
+      cartService.increaseQuantity(itemId);
+    } else if ("decrease".equals(action)) {
+      cartService.decreaseQuantity(itemId);
+    }
+    List<CartProduct> items = cartService.getCartItems(user);
+    int cartTotal = items.stream().mapToInt(i -> i.getProduct().getPrice() * i.getQuantity()).sum();
+    int cartTotalItems = items.stream().mapToInt(CartProduct::getQuantity).sum();
+    CartProduct updated = items.stream().filter(i -> i.getId() == itemId).findFirst().orElse(null);
+    Map<String, Object> result = new HashMap<>();
+    result.put("cartTotal", cartTotal);
+    result.put("cartTotalItems", cartTotalItems);
+    result.put("cartItemCount", items.size());
+    if (updated != null) {
+      result.put("quantity", updated.getQuantity());
+      result.put("subtotal", updated.getProduct().getPrice() * updated.getQuantity());
+      result.put("removed", false);
+    } else {
+      result.put("removed", true);
+    }
+    return result;
+  }
 
   @GetMapping("/cart")
   public String viewCart(Model model) {
