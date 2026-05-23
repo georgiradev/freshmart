@@ -102,9 +102,11 @@
             flex-direction: column;
             margin-bottom: 1.5rem;
         }
-        .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 28px rgba(0,0,0,.13);
+        @media (hover: hover) {
+            .product-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 28px rgba(0,0,0,.13);
+            }
         }
         .product-img-wrap {
             background: #f0f4f0;
