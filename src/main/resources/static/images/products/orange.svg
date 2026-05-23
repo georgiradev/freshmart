@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="320" height="240" viewBox="-28 -20 376 280">
-  <rect width="320" height="240" fill="#fff3e0" rx="12"/>
+  <rect x="-28" y="-20" width="376" height="280" fill="#fff3e0" rx="12"/>
   <circle cx="160" cy="108" r="62" fill="#ff9800"/>
   <line x1="160" y1="48" x2="160" y2="168" stroke="#fb8c00" stroke-width="2" opacity="0.5"/>
   <line x1="106" y1="62" x2="214" y2="154" stroke="#fb8c00" stroke-width="2" opacity="0.5"/>
@@ -9,4 +9,5 @@
   <ellipse cx="160" cy="42" rx="14" ry="7" fill="#4caf50" transform="rotate(-12,160,42)"/>
   <ellipse cx="135" cy="83" rx="12" ry="18" fill="rgba(255,255,255,0.28)" transform="rotate(-18,135,83)"/>
 </svg>
+
 

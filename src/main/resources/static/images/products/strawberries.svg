@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="320" height="240" viewBox="-28 -20 376 280">
-  <rect width="320" height="240" fill="#fce4ec" rx="12"/>
+  <rect x="-28" y="-20" width="376" height="280" fill="#fce4ec" rx="12"/>
   <path d="M160 158 C118 146 98 115 103 84 C108 58 138 50 160 56 C182 50 212 58 217 84 C222 115 202 146 160 158 Z" fill="#e53935"/>
   <path d="M133 60 C128 40 152 44 160 56 C168 44 192 40 187 60 C181 52 170 49 160 56 C150 49 139 52 133 60 Z" fill="#4caf50"/>
   <ellipse cx="140" cy="84" rx="4" ry="3" fill="#ffcdd2" transform="rotate(-10,140,84)"/>
@@ -14,4 +14,5 @@
   <ellipse cx="178" cy="126" rx="4" ry="3" fill="#ffcdd2"/>
   <ellipse cx="137" cy="92" rx="9" ry="14" fill="rgba(255,255,255,0.22)" transform="rotate(-10,137,92)"/>
 </svg>
+
 
