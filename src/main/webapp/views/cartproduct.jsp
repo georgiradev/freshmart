@@ -132,7 +132,9 @@
             text-decoration: none; white-space: nowrap;
             transition: background .2s; flex-shrink: 0;
         }
-        .btn-remove:hover { background: #ffe3e3; color: #c92a2a; text-decoration: none; }
+        @media (hover: hover) {
+            .btn-remove:hover { background: #ffe3e3; color: #c92a2a; text-decoration: none; }
+        }
 
         /* ── Summary panel ── */
         .summary-card {
@@ -167,7 +169,9 @@
             display: block; text-align: center; margin-top: .75rem;
             color: #adb5bd; font-size: .82rem; text-decoration: none;
         }
-        .btn-clear:hover { color: #e03131; text-decoration: none; }
+        @media (hover: hover) {
+            .btn-clear:hover { color: #e03131; text-decoration: none; }
+        }
 
         /* ── Empty cart ── */
         .empty-cart {
@@ -321,7 +325,7 @@
 </div>
 
 <footer>
-    &copy; 2025 <strong>FreshMart</strong> &mdash; Fresh produce, delivered daily.
+    &copy; 2026 <strong>FreshMart</strong> &mdash; Fresh produce, delivered daily.
 </footer>
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
