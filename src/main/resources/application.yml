@@ -9,158 +9,158 @@ catalog:
       price: 3
       weight: 76
       category: "Fruits"
-      image: "/images/fruits.svg"
+      image: "/images/products/apple.svg"
 
     - name: "Banana"
       description: "Sweet and tropical"
       price: 2
       weight: 120
       category: "Fruits"
-      image: "/images/fruits.svg"
+      image: "/images/products/banana.svg"
 
     - name: "Orange"
       description: "Rich in vitamins"
       price: 3
       weight: 180
       category: "Fruits"
-      image: "/images/fruits.svg"
+      image: "/images/products/orange.svg"
 
     - name: "Strawberries"
       description: "Juicy summer fruit"
       price: 5
       weight: 300
       category: "Fruits"
-      image: "/images/fruits.svg"
+      image: "/images/products/strawberries.svg"
 
     - name: "Carrot"
       description: "Crunchy and healthy"
       price: 2
       weight: 200
       category: "Vegetables"
-      image: "/images/vegetables.svg"
+      image: "/images/products/carrot.svg"
 
     - name: "Spinach"
       description: "Fresh leafy greens"
       price: 3
       weight: 150
       category: "Vegetables"
-      image: "/images/vegetables.svg"
+      image: "/images/products/spinach.svg"
 
     - name: "Tomato"
       description: "Garden fresh tomatoes"
       price: 2
       weight: 250
       category: "Vegetables"
-      image: "/images/vegetables.svg"
+      image: "/images/products/tomato.svg"
 
     - name: "Beef Steak"
       description: "Premium quality beef"
       price: 25
       weight: 500
       category: "Meat"
-      image: "/images/meat.svg"
+      image: "/images/products/beef-steak.svg"
 
     - name: "Chicken Breast"
       description: "Free-range chicken"
       price: 12
       weight: 400
       category: "Meat"
-      image: "/images/meat.svg"
+      image: "/images/products/chicken-breast.svg"
 
     - name: "Salmon Fillet"
       description: "Wild-caught Atlantic salmon"
       price: 18
       weight: 300
       category: "Fish"
-      image: "/images/fish.svg"
+      image: "/images/products/salmon-fillet.svg"
 
     - name: "Cod Fillet"
       description: "Fresh white fish"
       price: 14
       weight: 350
       category: "Fish"
-      image: "/images/fish.svg"
+      image: "/images/products/cod-fillet.svg"
 
     - name: "Whole Milk"
       description: "Organic whole milk"
       price: 2
       weight: 1000
       category: "Dairy"
-      image: "/images/dairy.svg"
+      image: "/images/products/whole-milk.svg"
 
     - name: "Greek Yogurt"
       description: "Creamy Greek style"
       price: 3
       weight: 500
       category: "Dairy"
-      image: "/images/dairy.svg"
+      image: "/images/products/greek-yogurt.svg"
 
     - name: "Cheddar Cheese"
       description: "Aged cheddar"
       price: 6
       weight: 400
       category: "Dairy"
-      image: "/images/dairy.svg"
+      image: "/images/products/cheddar-cheese.svg"
 
     - name: "Sourdough Bread"
       description: "Freshly baked sourdough"
       price: 4
       weight: 800
       category: "Bakery"
-      image: "/images/bakery.svg"
+      image: "/images/products/sourdough-bread.svg"
 
     - name: "Croissant"
       description: "Buttery and flaky"
       price: 2
       weight: 100
       category: "Bakery"
-      image: "/images/bakery.svg"
+      image: "/images/products/croissant.svg"
 
     - name: "Orange Juice"
       description: "Cold-pressed goodness"
       price: 3
       weight: 1000
       category: "Drinks"
-      image: "/images/drinks.svg"
+      image: "/images/products/orange-juice.svg"
 
     - name: "Sparkling Water"
       description: "Sparkling mineral water"
       price: 1
       weight: 500
       category: "Drinks"
-      image: "/images/drinks.svg"
+      image: "/images/products/sparkling-water.svg"
 
     - name: "Dark Chocolate"
       description: "70% dark chocolate"
       price: 4
       weight: 100
       category: "Sweets"
-      image: "/images/sweets.svg"
+      image: "/images/products/dark-chocolate.svg"
 
     - name: "Gummy Bears"
       description: "Assorted flavors"
       price: 2
       weight: 200
       category: "Sweets"
-      image: "/images/sweets.svg"
+      image: "/images/products/gummy-bears.svg"
 
     - name: "Olive Oil"
       description: "Extra virgin, cold pressed"
       price: 8
       weight: 750
       category: "Other"
-      image: "/images/other.svg"
+      image: "/images/products/olive-oil.svg"
 
     - name: "Pink Salt"
       description: "Himalayan pink salt"
       price: 3
       weight: 500
       category: "Other"
-      image: "/images/other.svg"
+      image: "/images/products/pink-salt.svg"
 
     - name: "Cracked Eggs"
       description: "Woops! There goes the eggs..."
       price: 1
       weight: 43
       category: "Other"
-      image: "/images/other.svg"
+      image: "/images/products/cracked-eggs.svg"

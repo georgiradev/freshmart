@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="240" viewBox="0 0 320 240">
+  <rect width="320" height="240" fill="#fffde7" rx="12"/>
+  <path d="M98 158 L222 158 L202 64 L118 64 Z" fill="#fdd835"/>
+  <rect x="116" y="56" width="88" height="14" rx="5" fill="#f9a825"/>
+  <circle cx="143" cy="96" r="9" fill="#f9a825" opacity="0.8"/>
+  <circle cx="180" cy="110" r="11" fill="#f9a825" opacity="0.8"/>
+  <circle cx="153" cy="132" r="8" fill="#f9a825" opacity="0.8"/>
+  <circle cx="128" cy="143" r="7" fill="#f9a825" opacity="0.8"/>
+  <circle cx="178" cy="142" r="9" fill="#f9a825" opacity="0.8"/>
+  <path d="M126 78 C130 78 133 83 130 135 C126 135 123 133 123 80 Z" fill="rgba(255,255,255,0.3)"/>
+  <rect x="40" y="175" width="240" height="36" rx="8" fill="#f57f17"/>
+  <text x="160" y="200" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="bold" fill="white">Cheddar Cheese</text>
+</svg>

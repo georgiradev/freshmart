@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="240" viewBox="0 0 320 240">
+  <rect width="320" height="240" fill="#f3e5f5" rx="12"/>
+  <!-- Red bear -->
+  <circle cx="115" cy="108" r="23" fill="#ef5350"/>
+  <circle cx="103" cy="89" r="13" fill="#ef5350"/>
+  <circle cx="127" cy="89" r="13" fill="#ef5350"/>
+  <circle cx="97" cy="81" r="7" fill="#ef9a9a"/>
+  <circle cx="121" cy="81" r="7" fill="#ef9a9a"/>
+  <circle cx="108" cy="105" r="5" fill="#c62828" opacity="0.6"/>
+  <circle cx="122" cy="105" r="4" fill="#c62828" opacity="0.6"/>
+  <!-- Green bear -->
+  <circle cx="160" cy="103" r="25" fill="#66bb6a"/>
+  <circle cx="147" cy="82" r="14" fill="#66bb6a"/>
+  <circle cx="173" cy="82" r="14" fill="#66bb6a"/>
+  <circle cx="141" cy="73" r="7" fill="#a5d6a7"/>
+  <circle cx="167" cy="73" r="7" fill="#a5d6a7"/>
+  <circle cx="153" cy="99" r="5" fill="#388e3c" opacity="0.6"/>
+  <circle cx="167" cy="99" r="4" fill="#388e3c" opacity="0.6"/>
+  <!-- Yellow bear -->
+  <circle cx="205" cy="108" r="23" fill="#fdd835"/>
+  <circle cx="193" cy="89" r="13" fill="#fdd835"/>
+  <circle cx="217" cy="89" r="13" fill="#fdd835"/>
+  <circle cx="187" cy="81" r="7" fill="#fff176"/>
+  <circle cx="211" cy="81" r="7" fill="#fff176"/>
+  <circle cx="198" cy="105" r="5" fill="#f9a825" opacity="0.6"/>
+  <circle cx="212" cy="105" r="4" fill="#f9a825" opacity="0.6"/>
+  <rect x="50" y="175" width="220" height="36" rx="8" fill="#6a1b9a"/>
+  <text x="160" y="200" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" font-weight="bold" fill="white">Gummy Bears</text>
+</svg>

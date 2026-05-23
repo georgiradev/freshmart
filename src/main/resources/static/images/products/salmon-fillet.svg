@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="240" viewBox="0 0 320 240">
+  <rect width="320" height="240" fill="#fce4ec" rx="12"/>
+  <path d="M73 132 C78 96 104 64 145 57 C176 51 216 64 237 90 C247 106 242 127 222 137 C196 150 154 157 118 150 C88 144 70 150 73 132 Z" fill="#ff7043"/>
+  <path d="M93 118 C106 90 132 74 162 71 C188 68 210 80 220 100" stroke="#ffab91" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <path d="M88 130 C102 102 128 86 160 83 C187 81 208 96 220 115" stroke="#ffab91" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <path d="M73 132 C88 144 118 150 155 157 C190 151 216 141 222 137" stroke="#e64a19" stroke-width="5" fill="none"/>
+  <ellipse cx="133" cy="90" rx="15" ry="9" fill="rgba(255,255,255,0.35)" transform="rotate(-25,133,90)"/>
+  <rect x="40" y="175" width="240" height="36" rx="8" fill="#ad1457"/>
+  <text x="160" y="200" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="bold" fill="white">Salmon Fillet</text>
+</svg>

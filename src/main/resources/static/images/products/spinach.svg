@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="240" viewBox="0 0 320 240">
+  <rect width="320" height="240" fill="#e8f5e9" rx="12"/>
+  <path d="M160 158 C118 132 94 100 98 67 C103 46 136 38 160 44 C184 38 217 46 222 67 C226 100 202 132 160 158 Z" fill="#66bb6a"/>
+  <line x1="160" y1="47" x2="160" y2="155" stroke="#388e3c" stroke-width="3"/>
+  <line x1="160" y1="74" x2="114" y2="95" stroke="#388e3c" stroke-width="1.5" opacity="0.6"/>
+  <line x1="160" y1="74" x2="206" y2="95" stroke="#388e3c" stroke-width="1.5" opacity="0.6"/>
+  <line x1="160" y1="100" x2="107" y2="118" stroke="#388e3c" stroke-width="1.5" opacity="0.6"/>
+  <line x1="160" y1="100" x2="213" y2="118" stroke="#388e3c" stroke-width="1.5" opacity="0.6"/>
+  <line x1="160" y1="126" x2="120" y2="140" stroke="#388e3c" stroke-width="1.5" opacity="0.6"/>
+  <line x1="160" y1="126" x2="200" y2="140" stroke="#388e3c" stroke-width="1.5" opacity="0.6"/>
+  <path d="M113 63 C98 46 86 36 90 28 C97 40 107 52 116 60 Z" fill="#81c784"/>
+  <path d="M207 63 C222 46 234 36 230 28 C223 40 213 52 204 60 Z" fill="#81c784"/>
+  <rect x="60" y="175" width="200" height="36" rx="8" fill="#1b5e20"/>
+  <text x="160" y="200" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="bold" fill="white">Spinach</text>
+</svg>
