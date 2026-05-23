@@ -39,9 +39,6 @@ A full-stack e-commerce web application for fresh groceries, built with Spring B
 ### Profile
 ![Profile](docs/screenshots/profile.png)
 
-### Update Profile
-![Update Profile](docs/screenshots/update-profile.png)
-
 ### Register
 ![Register](docs/screenshots/register.png)
 
