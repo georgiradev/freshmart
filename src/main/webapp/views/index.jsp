@@ -348,15 +348,18 @@
             fetch('/cart/add/ajax?productId=' + productId, { method: 'POST' })
                 .then(function (r) { return r.json(); })
                 .then(function (data) {
-                    var wrap = form.parentElement;
-                    wrap.innerHTML =
+                    var footer = form.parentElement; // .product-footer
+                    var stepperWrap = document.createElement('div');
+                    stepperWrap.className = 'cart-stepper-wrap';
+                    stepperWrap.innerHTML =
                         '<span class="in-cart-badge"><i class="fas fa-check-circle"></i> In cart</span>' +
                         '<div class="qty-stepper" data-item-id="' + data.itemId + '" data-product-id="' + productId + '">' +
                         '<button type="button" class="qty-btn qty-decrease" title="Remove one"><i class="fas fa-minus" style="font-size:.6rem;"></i></button>' +
                         '<span class="qty-value">' + data.quantity + '</span>' +
                         '<button type="button" class="qty-btn qty-increase" title="Add one"><i class="fas fa-plus" style="font-size:.6rem;"></i></button>' +
                         '</div>';
-                    attachSteppers(wrap);
+                    footer.replaceChild(stepperWrap, form);
+                    attachSteppers(stepperWrap);
                 });
         });
     }
