@@ -1,105 +1,146 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231b4332'/><text y='.9em' font-size='80'>🌿</text></svg>">
-    <meta name="viewport"
-	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-	integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
-	crossorigin="anonymous">
-<title>Document</title>
+  <meta charset="UTF-8">
+  <script>(function(){var t=localStorage.getItem('freshmart-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231b4332'/><text y='.9em' font-size='80'>🌿</text></svg>">
+  <title>Dashboard — FreshMart Admin</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/admin.css">
 </head>
+<body>
+<div class="admin-wrapper">
 
-<body class="bg-dark">
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#"> <img
-				src="../static/images/logo.png" width="auto" height="40"
-				class="d-inline-block align-top" alt="" />
-			</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+  <!-- Sidebar -->
+  <aside class="admin-sidebar" id="adminSidebar">
+    <div class="sidebar-brand">
+      <span class="brand-emoji">🌿</span>
+      <div>
+        <div class="brand-name">FreshMart</div>
+        <div class="brand-sub">Admin Panel</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section">Main</div>
+      <a href="/admin/" class="sidebar-link active">
+        <i class="fas fa-tachometer-alt"></i> Dashboard
+      </a>
+      <div class="sidebar-section">Manage</div>
+      <a href="/admin/products" class="sidebar-link">
+        <i class="fas fa-box-open"></i> Products
+      </a>
+      <a href="/admin/categories" class="sidebar-link">
+        <i class="fas fa-tags"></i> Categories
+      </a>
+      <a href="/admin/customers" class="sidebar-link">
+        <i class="fas fa-users"></i> Customers
+      </a>
+      <div class="sidebar-section">Account</div>
+      <a href="/admin/profileDisplay" class="sidebar-link">
+        <i class="fas fa-user-cog"></i> My Profile
+      </a>
+    </nav>
+    <div class="sidebar-footer">FreshMart &copy; 2026</div>
+  </aside>
 
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mr-auto"></ul>
-				<ul class="navbar-nav">
-					<li class="nav-item active"><a class="nav-link" href="/admin/">Home
-							Page</a></li>
-					<li class="nav-item active"><a class="nav-link" href="/admin/logout">Logout</a></li>
+  <!-- Main -->
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <button class="topbar-menu-btn" onclick="document.getElementById('adminSidebar').classList.toggle('open')" aria-label="Toggle menu">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div>
+          <div class="topbar-title">Dashboard</div>
+          <div class="topbar-sub">Welcome back, ${username}</div>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <a href="/admin/profileDisplay" class="topbar-avatar" title="${username}">
+          <img src="${not empty profileImage ? profileImage : '/images/default-avatar.svg'}" alt="${username}">
+        </a>
+        <span class="topbar-username">${username}</span>
+        <button class="theme-toggle" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+        <a href="/admin/logout" class="btn-topbar-logout">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+      </div>
+    </header>
 
-				</ul>
+    <main class="admin-content">
 
-			</div>
-		</div>
-	</nav>
-	<div class="jumbotron text-center">
-		<h1 class="display-4">Welcome Back, Admin</h1><hr>
-		<p>Manage your data from this Admin Panel</p>
-	</div><br>
-	<div class="container-fluid" >
-		<div class="row justify-content-center">
-			<div class="col-sm-3 pt-4">
-				<div class="card border border-info" style="background-color: white;">
-					<div class="card-body text-center">
-						<h4 class="card-title">Categories</h4>
-						<p>---------------------------------------------</p>
-						<p class="card-text">Manage the categories section here.</p>
-						<a href="/admin/categories" class="card-link btn btn-primary">Manage</a>
+      <!-- Stats -->
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-icon stat-icon-green"><i class="fas fa-box-open"></i></div>
+          <div>
+            <div class="stat-num">${productCount}</div>
+            <div class="stat-label">Products</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-icon-blue"><i class="fas fa-tags"></i></div>
+          <div>
+            <div class="stat-num">${categoryCount}</div>
+            <div class="stat-label">Categories</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-icon-orange"><i class="fas fa-users"></i></div>
+          <div>
+            <div class="stat-num">${customerCount}</div>
+            <div class="stat-label">Customers</div>
+          </div>
+        </div>
+      </div>
 
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-3 pt-4">
-				<div class="card" style="background-color: white;">
-					<div class="card-body text-center">
-						<h4 class="card-title">Products</h4>
-						<p>---------------------------------------------</p>
-						<p class="card-text">Manage all the products here.</p>
-						<a href="/admin/products" class="card-link btn btn-primary">Manage</a>
+      <!-- Quick actions -->
+      <div style="margin-bottom:.75rem">
+        <span style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#6c757d;">Quick Actions</span>
+      </div>
+      <div class="qa-grid">
+        <a href="/admin/products" class="qa-card">
+          <div class="qa-icon" style="background:#d8f3dc;color:#1b4332;"><i class="fas fa-seedling"></i></div>
+          <h6>Products</h6>
+          <p>Add, edit or remove products</p>
+        </a>
+        <a href="/admin/products/add" class="qa-card">
+          <div class="qa-icon" style="background:#dbeafe;color:#1e40af;"><i class="fas fa-plus-circle"></i></div>
+          <h6>Add Product</h6>
+          <p>List a new product for sale</p>
+        </a>
+        <a href="/admin/categories" class="qa-card">
+          <div class="qa-icon" style="background:#fef9c3;color:#92400e;"><i class="fas fa-layer-group"></i></div>
+          <h6>Categories</h6>
+          <p>Manage product categories</p>
+        </a>
+        <a href="/admin/customers" class="qa-card">
+          <div class="qa-icon" style="background:#ffe8d6;color:#9c4a1a;"><i class="fas fa-user-friends"></i></div>
+          <h6>Customers</h6>
+          <p>View registered customers</p>
+        </a>
+        <a href="/" class="qa-card">
+          <div class="qa-icon" style="background:#ede9fe;color:#5b21b6;"><i class="fas fa-external-link-alt"></i></div>
+          <h6>View Store</h6>
+          <p>Go to the customer-facing site</p>
+        </a>
+      </div>
 
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-3 pt-4">
-				<div class="card" style="background-color: white;">
-					<div class="card-body text-center">
-						<h4 class="card-title">Customers</h4>
-						<p>---------------------------------------------</p>
-						<p class="card-text">Manage all the customer here.</p>
-						<a href="/admin/customers" class="card-link btn btn-primary">Manage</a>
+    </main>
+  </div>
+</div>
 
-					</div>
-				</div>
-			</div>
-			
-			
-			
-		</div>
-	</div>
-
-
-
-	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-		crossorigin="anonymous"></script>
+<script>
+  document.addEventListener('click', function(e) {
+    var sidebar = document.getElementById('adminSidebar');
+    if (sidebar.classList.contains('open') && !sidebar.contains(e.target)) {
+      sidebar.classList.remove('open');
+    }
+  });
+</script>
+<script src="/js/theme.js"></script>
 </body>
 </html>

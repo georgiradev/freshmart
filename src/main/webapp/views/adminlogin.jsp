@@ -1,83 +1,52 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231b4332'/><text y='.9em' font-size='80'>🌿</text></svg>">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <!-- Font Awesome CSS -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <title>Admin Login</title>
-    <style>
-    
-    	body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f8f9fa;
-        }
-        .login-container {
-        	max-width: 400px;
-            width: 100%;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            background: white;
-        }
-        .login-container .jumbotron {
-            border-radius: 8px;
-        }
-        .input-group-text {
-            background-color: #007bff;
-            color: white;
-            border-radius: 0.25rem 0 0 0.25rem;
-        }
-        .input-group-prepend .input-group-text {
-            border-right: 0;
-        }
-        .form-control {
-            border-radius: 0 0.25rem 0.25rem 0;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <script>(function(){var t=localStorage.getItem('freshmart-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231b4332'/><text y='.9em' font-size='80'>🌿</text></svg>">
+  <title>Admin Login — FreshMart</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/admin.css">
 </head>
+<body class="login-page">
+<button class="theme-toggle-float" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
 
-<body class="bg-dark">
+<div class="login-card">
+  <div class="login-logo">
+    <div class="logo-emoji">🌿</div>
+    <div class="logo-name">FreshMart</div>
+    <div class="logo-sub">Admin Portal</div>
+  </div>
 
-<div class="login-container p-4">
-    <div class="jumbotron border p-4">
-        <h2 class="text-center">Admin Login</h2>
-        <form action="/admin/loginvalidate" method="post">
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                    </div>
-                    <input type="text" name="username" id="username" placeholder="Admin username" required class="form-control form-control-lg">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                    </div>
-                    <input type="password" class="form-control form-control-lg" placeholder="Admin Password" required name="password" id="password">
-                </div>
-            </div>
-            <input type="submit" value="Login" class="btn btn-primary btn-block mt-4">
-            <h3 class="text-center text-danger mt-3">${msg}</h3>
-        </form>
+  <h2>Sign in to continue</h2>
+
+  <form action="/admin/loginvalidate" method="post">
+    <div class="adm-form-group">
+      <label for="username">Username</label>
+      <div class="login-input-wrap">
+        <i class="fas fa-user input-icon"></i>
+        <input type="text" id="username" name="username" class="adm-input"
+               placeholder="Admin username" required autofocus>
+      </div>
     </div>
+    <div class="adm-form-group">
+      <label for="password">Password</label>
+      <div class="login-input-wrap">
+        <i class="fas fa-lock input-icon"></i>
+        <input type="password" id="password" name="password" class="adm-input"
+               placeholder="Admin password" required>
+      </div>
+    </div>
+    <button type="submit" class="btn-login">
+      <i class="fas fa-sign-in-alt"></i>&nbsp; Sign In
+    </button>
+    <div class="login-error">${msg}</div>
+  </form>
 </div>
 
-
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="/js/theme.js"></script>
 </body>
 </html>

@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,20 @@ public class AdminController {
   private final CategoryService categoryService;
   private final ProductService productService;
   private final PasswordEncoder passwordEncoder;
+
+  /** Injects the authenticated admin's username into every admin view model. */
+  @ModelAttribute("username")
+  public String injectUsername() {
+    return SecurityContextHolder.getContext().getAuthentication().getName();
+  }
+
+  /** Injects the admin's profile image URL into every admin view model. */
+  @ModelAttribute("profileImage")
+  public String injectProfileImage() {
+    String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    User user = userService.getUserByUsername(username);
+    return (user != null && user.getProfileImage() != null) ? user.getProfileImage() : "";
+  }
 
   @Autowired
   public AdminController(
@@ -57,7 +72,7 @@ public class AdminController {
     if ("true".equals(error)) {
       log.warn("Failed admin login attempt");
     }
-    ModelAndView mv = new ModelAndView("adminLogin");
+    ModelAndView mv = new ModelAndView("adminlogin");
     if ("true".equals(error)) {
       mv.addObject("msg", "Invalid username or password. Please try again.");
     }
@@ -65,11 +80,13 @@ public class AdminController {
   }
 
   @GetMapping(value = {"/", "Dashboard"})
-  public ModelAndView adminHome(Model model) {
+  public ModelAndView adminHome() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     log.debug("Admin dashboard accessed by: {}", authentication.getName());
     ModelAndView mv = new ModelAndView("adminHome");
-    mv.addObject("admin", authentication.getName());
+    mv.addObject("productCount",  productService.getProducts().size());
+    mv.addObject("categoryCount", categoryService.getCategories().size());
+    mv.addObject("customerCount", userService.getUsers().size());
     return mv;
   }
 

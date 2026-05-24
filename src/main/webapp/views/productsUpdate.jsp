@@ -1,130 +1,168 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!doctype html>
-<%@page import="java.sql.*"%>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231b4332'/><text y='.9em' font-size='80'>🌿</text></svg>">
-    <meta name="viewport"
-	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-	integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
-	crossorigin="anonymous">
-<title>Document</title>
+  <meta charset="UTF-8">
+  <script>(function(){var t=localStorage.getItem('freshmart-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231b4332'/><text y='.9em' font-size='80'>🌿</text></svg>">
+  <title>Update Product — FreshMart Admin</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#"> <img
-				th:src="@{/images/logo.png}" src="../static/images/logo.png"
-				width="auto" height="40" class="d-inline-block align-top" alt="" />
-			</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+<div class="admin-wrapper">
 
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mr-auto"></ul>
-				<ul class="navbar-nav">
-					<li class="nav-item active"><a class="nav-link"
-						href="/dashboard" >Home Page</a></li>
-					<li class="nav-item active"><a class="nav-link"
-						href="/logout" >Logout</a></li>
-				</ul>
+  <!-- Sidebar -->
+  <aside class="admin-sidebar" id="adminSidebar">
+    <div class="sidebar-brand">
+      <span class="brand-emoji">🌿</span>
+      <div>
+        <div class="brand-name">FreshMart</div>
+        <div class="brand-sub">Admin Panel</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section">Main</div>
+      <a href="/admin/" class="sidebar-link">
+        <i class="fas fa-tachometer-alt"></i> Dashboard
+      </a>
+      <div class="sidebar-section">Manage</div>
+      <a href="/admin/products" class="sidebar-link active">
+        <i class="fas fa-box-open"></i> Products
+      </a>
+      <a href="/admin/categories" class="sidebar-link">
+        <i class="fas fa-tags"></i> Categories
+      </a>
+      <a href="/admin/customers" class="sidebar-link">
+        <i class="fas fa-users"></i> Customers
+      </a>
+      <div class="sidebar-section">Account</div>
+      <a href="/admin/profileDisplay" class="sidebar-link">
+        <i class="fas fa-user-cog"></i> My Profile
+      </a>
+    </nav>
+    <div class="sidebar-footer">FreshMart &copy; 2026</div>
+  </aside>
 
-			</div>
-		</div>
-	</nav><br>
-	<div class="jumbotron container border border-info">
-		<h3>Update Existing Product</h3>
-		<form action="/admin/products/update/${product.id}" method="post">
-			<div class="row">
-				<div class="col-sm-5">
-					
-					<div class="form-group">
-						<label for="name">Id</label> 
-						<input type="number" readonly="readonly" class="form-control border border-success" name="id"  value="${product.id}">
-						
+  <!-- Main -->
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <button class="topbar-menu-btn" onclick="document.getElementById('adminSidebar').classList.toggle('open')" aria-label="Toggle menu">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div>
+          <div class="topbar-title">Update Product</div>
+          <div class="topbar-sub">Edit product #${product.id}</div>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <a href="/admin/profileDisplay" class="topbar-avatar" title="${username}">
+          <img src="${not empty profileImage ? profileImage : '/images/default-avatar.svg'}" alt="${username}">
+        </a>
+        <span class="topbar-username">${username}</span>
+        <button class="theme-toggle" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+        <a href="/admin/logout" class="btn-topbar-logout">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+      </div>
+    </header>
 
-					</div>
-					<div class="form-group">
-						<label for="name">Name</label> 
-						<input type="text" class="form-control border border-success" required name="name" value="${product.name }" placeholder="Enter name">
-					</div>
-					
-					<div class="form-group">
-					
-						<label for="category">Select Category</label> 
-						<select class="form-control border border-success" name="categoryid" readonly>
-							<option selected>Select a Category</option>
-                            							<c:forEach var="category" items="${categories}">
-                            								<option value="${category.id}">${category.name}</option>
-                            							</c:forEach>
-						</select>
-					</div>
-					<div class="form-group">
-						<label for="price">Price</label> 
-						<input type="number" class="form-control border border-success" required name="price" value="${ product.price }" min="1" placeholder="Price">
-					</div>
-					<div class="form-group">
-						<label for="weight">Weight in grams</label> 
-						<input type="number" class="form-control border border-success" required name="weight" value="${product.weight }" min="1" placeholder="Weight">
-					</div>
-					<div class="form-group">
-						<label for="weight">Available Quantity</label> 
-						<input type="number" class="form-control border border-success" required name="quantity" value="${ product.quantity }" min="1" placeholder="Quantity">
-					</div>
-					
-					
-				</div>
-				
-				<div class="col-sm-5">
-				<div class="form-group">
-						<label for="description">Product Description</label>
-						<textarea class="form-control border border-success" rows="4" name="description" placeholder="Product Details" value= "${ pdescription }"></textarea>
-					</div>
-					<p>Product Image</p>
-					<div class="custom-file">
-						<input type="file" class="custom-file-input" name="productImage" value="${ product.image }" accept="image/jpeg, image/png" id="productImage"  onchange="loadfile(event)"/>
-						<label class="custom-file-label border border-success" for="productImage">Choose file</label>
-						<script type="text/javascript">
-						var loadFile = function(event) {
-							var image = document.getElementById('imgPreview');
-							image.src = URL.createObjectURL(event.target.files[0]);
-						};
-						</script>
-					</div>
-					<div class="form-group">
-						<img src="#" id="imgPreview" height="100px" width="100px"
-							style="margin-top: 20px" alt=" ">
-					</div>
-					<input type="hidden" name="imgName">
-					<input type="submit" value="Update Details" class="btn btn-primary">
-				</div>
-			</div>
-		</form>
-	</div>
+    <main class="admin-content">
+      <div class="admin-card adm-form-card">
+        <div class="admin-card-header">
+          <h5><i class="fas fa-edit adm-card-icon"></i>Edit: ${product.name}</h5>
+          <a href="/admin/products" class="btn-adm btn-adm-secondary">
+            <i class="fas fa-arrow-left"></i> Back
+          </a>
+        </div>
+        <div class="admin-card-body adm-form-body">
+          <form action="/admin/products/update/${product.id}" method="post">
+            <div class="form-grid">
+              <!-- Left column -->
+              <div>
+                <div class="adm-form-group">
+                  <label>Product ID</label>
+                  <input type="number" name="id" class="adm-input" value="${product.id}" readonly>
+                </div>
+                <div class="adm-form-group">
+                  <label for="pName">Product Name</label>
+                  <input type="text" id="pName" name="name" class="adm-input"
+                         value="${product.name}" required>
+                </div>
+                <div class="adm-form-group">
+                  <label for="pCategory">Category</label>
+                  <select id="pCategory" name="categoryid" class="adm-input" required>
+                    <option value="" disabled>Select a category</option>
+                    <c:forEach var="category" items="${categories}">
+                      <option value="${category.id}"
+                        <c:if test="${product.category.id == category.id}">selected</c:if>
+                      >${category.name}</option>
+                    </c:forEach>
+                  </select>
+                </div>
+                <div class="adm-form-group">
+                  <label for="pPrice">Price (${currencySymbol})</label>
+                  <input type="number" id="pPrice" name="price" class="adm-input"
+                         value="${product.price}" min="1" required>
+                </div>
+                <div class="adm-form-group">
+                  <label for="pWeight">Weight (grams)</label>
+                  <input type="number" id="pWeight" name="weight" class="adm-input"
+                         value="${product.weight}" min="1" required>
+                </div>
+                <div class="adm-form-group">
+                  <label for="pQuantity">Available Quantity</label>
+                  <input type="number" id="pQuantity" name="quantity" class="adm-input"
+                         value="${product.quantity}" min="1" required>
+                </div>
+              </div>
+              <!-- Right column -->
+              <div>
+                <div class="adm-form-group">
+                  <label for="pDescription">Description</label>
+                  <textarea id="pDescription" name="description" class="adm-input"
+                            rows="4">${product.description}</textarea>
+                </div>
+                <div class="adm-form-group">
+                  <label for="pImage">Image URL</label>
+                  <input type="text" id="pImage" name="productImage" class="adm-input"
+                         value="${product.image}" required
+                         oninput="var p=document.getElementById('imgPreview'); p.style.display='block'; p.src=this.value||''">
+                </div>
+                <div class="adm-img-preview">
+                  <img id="imgPreview" src="${product.image}" alt="Preview"
+                       onerror="this.style.display='none'">
+                </div>
+              </div>
+            </div>
 
-	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-		crossorigin="anonymous"></script>
+            <div class="adm-form-footer">
+              <button type="submit" class="btn-adm btn-adm-primary">
+                <i class="fas fa-save"></i> Save Changes
+              </button>
+              <a href="/admin/products" class="btn-adm btn-adm-secondary">
+                Cancel
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('click', function(e) {
+    var sidebar = document.getElementById('adminSidebar');
+    if (sidebar.classList.contains('open') && !sidebar.contains(e.target)) {
+      sidebar.classList.remove('open');
+    }
+  });
+</script>
+<script src="/js/theme.js"></script>
 </body>
 </html>
